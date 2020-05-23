@@ -956,7 +956,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.5.1", "@babel/runtime@^7.7.4":
+"@babel/runtime@^7.5.1", "@babel/runtime@^7.7.4", "@babel/runtime@^7.9.6":
   version "7.9.6"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.9.6.tgz#a9102eb5cadedf3f31d08a9ecf294af7827ea29f"
   integrity sha512-64AF1xY3OAkFHqOb9s4jpgk1Mm5vDZ4L3acHvAml+53nO1XbXLuDodsVpO4OIUsmemlUHMxNdYMNJmsvOwLrvQ==
@@ -4942,6 +4942,11 @@ hsla-regex@^1.0.0:
   resolved "https://registry.yarnpkg.com/hsla-regex/-/hsla-regex-1.0.0.tgz#c1ce7a3168c8c6614033a4b5f7877f3b225f9c38"
   integrity sha1-wc56MWjIxmFAM6S194d/OyJfnDg=
 
+htm@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/htm/-/htm-3.0.4.tgz#c90c891645d2d792bdb9f8c867964b18e3503718"
+  integrity sha512-VRdvxX3tmrXuT/Ovt59NMp/ORMFi4bceFMDjos1PV4E0mV+5votuID8R60egR9A4U8nLt238R/snlJGz3UYiTQ==
+
 html-comment-regex@^1.1.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/html-comment-regex/-/html-comment-regex-1.1.2.tgz#97d4688aeb5c81886a364faa0cad1dda14d433a7"
@@ -8521,6 +8526,13 @@ react-dom@^16.13.1:
     prop-types "^15.6.2"
     scheduler "^0.19.1"
 
+react-error-boundary@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/react-error-boundary/-/react-error-boundary-2.2.1.tgz#32ed74386a90482060cc2fea948bb7135465c4cb"
+  integrity sha512-8SZMkJRFUb0JuluHKwuUtkh5vvVWBg3O/bJIWgNMhMJv529aG//TmcphR3cSMhCWjz1vFZDb4taJd6pmwP5mEQ==
+  dependencies:
+    "@babel/runtime" "^7.9.6"
+
 react-error-overlay@^6.0.7:
   version "6.0.7"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.7.tgz#1dcfb459ab671d53f660a991513cb2f0a0553108"
@@ -8678,6 +8690,11 @@ realpath-native@^1.1.0:
   integrity sha512-wlgPA6cCIIg9gKz0fgAPjnzh4yR/LnXovwuo9hvyGvx3h8nX4+/iLZplfUWasXpqD8BdnGnP5njOFjkUwPzvjA==
   dependencies:
     util.promisify "^1.0.0"
+
+recoil@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/recoil/-/recoil-0.0.7.tgz#197066ac0a983e4728f5973033bbe5b40a277d40"
+  integrity sha512-U/0kniHLk131hKhAX35QGdghVf3+PSkLcFIFoNBNy+yv62qCLm3TE5c3v4x4WYzuKgw1fxU3GGhKHAUYdyRnTQ==
 
 recursive-readdir@2.2.2:
   version "2.2.2"
