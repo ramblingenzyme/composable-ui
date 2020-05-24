@@ -9,12 +9,11 @@ export default function ComponentSelector () {
     const onSelect = (e) => setSelectedId(e.target.value);
 
     return (
-        <select name="components" onChange={onSelect}>
+        <select name="components" onChange={onSelect} value={selectedId}>
             {componentOptions.map(({ id, name}) => (
                 <option
                     key={id}
                     value={id}
-                    selected={id === selectedId}
                 >
                     {name}
                 </option>

@@ -1,13 +1,12 @@
 import React from 'react';
 import './App.css';
 import {
-    RecoilRoot
+    RecoilRoot,
+    useTransactionObservation_UNSTABLE,
 } from "recoil"
 import Renderer from './platform/Renderer';
-import { html } from "htm/react";
 
 window.React = React;
-window.html = html;
 
 function App() {
   return (

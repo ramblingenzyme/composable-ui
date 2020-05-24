@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
+import Editor from "react-simple-code-editor";
+import { highlight, languages } from 'prismjs/components/prism-core';
+import 'prismjs/components/prism-clike';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/themes/prism';
 
 import ComponentSelector from "./ComponentSelector"
 import { toFunc } from "./utils"
@@ -8,24 +13,20 @@ import { componentStateFamily } from "./state";
 export default function ComponentEditor (props) {
     const [component, updateComponent] = useRecoilState(componentStateFamily(props.selectedId));
     const [name, setName] = useState(component.name);
-    const input = React.useRef(null);
+    const [code, setCode] = useState(component.src);
 
     const onChangeName = (e) => {
         setName(e.target.value);
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = () => {
         try {
-            const newSrc = input.current.value;
-
             updateComponent({
                 ...component,
                 name,
-                src: newSrc,
-                fn: toFunc(newSrc),
+                src: code,
+                fn: toFunc(code),
             });
-
-            props.addNew();
         } catch(e) {
             console.log(e);
         } finally {
@@ -34,15 +35,23 @@ export default function ComponentEditor (props) {
     }
 
     return (
-        <form className="editor" onSubmit={handleSubmit}>
+        <form className="editor-container" onSubmit={handleSubmit}>
             <div className="editor-toolbar">
                 <ComponentSelector />
+                <button type="button" onClick={props.addNew}>New component</button>
                 <label htmlFor={props.id}>
                     <input value={name} onChange={onChangeName} />
                 </label>
             </div>
-            <textarea id={props.id} ref={input} defaultValue={component.src} />
-            <button type="submit">Submit</button>
+            <Editor
+                padding={5}
+                className="editor"
+                id={props.id}
+                highlight={code => highlight(code, languages.js)}
+                value={code}
+                onValueChange={setCode}
+            />
+            <button type="submit">Save</button>
         </form>
     )
 }

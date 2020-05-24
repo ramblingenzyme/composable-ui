@@ -9,7 +9,7 @@
     margin-right: 10px;
 }
 
-.editor {
+.editor-container {
     display: flex;
     flex-direction: column;
 }
@@ -28,6 +28,12 @@
 
 .editor-toolbar > select {
     flex-shrink: 1;
+}
+
+.editor {
+    font-family: monospace;
+    background-color: rgb(250, 250, 250);
+    padding: 5px;
 }
 
 .components {
