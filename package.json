@@ -11,17 +11,11 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-error-boundary": "^2.2.1",
-    "react-scripts": "3.4.1",
-    "recoil": "^0.0.7"
+    "recoil": "^0.0.7",
+    "sucrase": "^3.15.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "start": "parcel start"
   },
   "browserslist": {
     "production": [
@@ -34,5 +28,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-react": "^7.9.4",
+    "parcel": "^2.0.0-alpha.3.2"
   }
 }

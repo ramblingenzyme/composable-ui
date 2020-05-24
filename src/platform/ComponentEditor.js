@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 
+import ComponentSelector from "./ComponentSelector"
 import { toFunc } from "./utils"
 import { componentStateFamily } from "./state";
 
@@ -34,7 +35,12 @@ export default function ComponentEditor (props) {
 
     return (
         <form className="editor" onSubmit={handleSubmit}>
-            <label htmlFor={props.id}><input value={name} onChange={onChangeName} /></label>
+            <div className="editor-toolbar">
+                <ComponentSelector />
+                <label htmlFor={props.id}>
+                    <input value={name} onChange={onChangeName} />
+                </label>
+            </div>
             <textarea id={props.id} ref={input} defaultValue={component.src} />
             <button type="submit">Submit</button>
         </form>
