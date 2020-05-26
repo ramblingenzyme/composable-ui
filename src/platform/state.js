@@ -2,6 +2,9 @@ import memoize from "lodash/memoize";
 import { atom, selector } from "recoil";
 import { v4 as uuid } from "uuid";
 
+import { getAllKeys, getItem } from "./storage.js";
+import { toFunc } from "./utils"
+
 const DEFAULT_UUID = uuid();
 
 export const componentStateFamily = memoize((id) => atom({
@@ -33,3 +36,23 @@ export const selectComponentOptions = selector({
         }))
     }
 })
+
+export const initializeState = ({ set }) => {
+    const keys = getAllKeys();
+    if (!keys.length) {
+        return;
+    }
+
+    set(componentIdsState, keys);
+    set(selectedIdState, keys[0]);
+
+    keys.forEach(key => {
+        const value = getItem(key);
+        const parsed = JSON.parse(value);
+        const fn = toFunc(parsed.src);
+        set(componentStateFamily(key), {
+            ...parsed,
+            fn,
+        });
+    })
+}

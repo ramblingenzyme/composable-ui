@@ -5,12 +5,13 @@ import {
     useTransactionObservation_UNSTABLE,
 } from "recoil"
 import Renderer from './platform/Renderer';
+import { initializeState } from "./platform/state";
 
 window.React = React;
 
 function App() {
   return (
-    <RecoilRoot>
+    <RecoilRoot initializeState={initializeState}>
         <Renderer />
     </RecoilRoot>
   );
