@@ -39,14 +39,15 @@ export default function ComponentEditor (props) {
             <div className="editor-toolbar">
                 <ComponentSelector />
                 <button type="button" onClick={props.addNew}>New component</button>
-                <label htmlFor={props.id}>
+                <label htmlFor={props.selectedId}>
                     <input value={name} onChange={onChangeName} />
                 </label>
             </div>
             <Editor
+                autoFocus
                 padding={5}
                 className="editor"
-                id={props.id}
+                id={props.selectedId}
                 highlight={code => highlight(code, languages.js)}
                 value={code}
                 onValueChange={setCode}
