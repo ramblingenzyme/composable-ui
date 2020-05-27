@@ -31,8 +31,9 @@
 }
 
 .editor {
+    color: rgb(204, 204, 204);
+    background-color: #2d2d2d;
     font-family: monospace;
-    background-color: rgb(250, 250, 250);
     padding: 5px;
 }
 
