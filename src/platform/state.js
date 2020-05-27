@@ -3,7 +3,7 @@ import { atom, selector } from "recoil";
 import { v4 as uuid } from "uuid";
 
 import { getAllKeys, getItem } from "./storage.js";
-import { toFunc } from "./utils"
+import { toComponent } from "./utils"
 
 const DEFAULT_UUID = uuid();
 
@@ -13,7 +13,7 @@ export const componentStateFamily = memoize((id) => atom({
         name: `New component (${id})`,
         src: "",
         fn: null,
-    }
+    },
 }));
 
 export const componentIdsState = atom({
@@ -46,13 +46,21 @@ export const initializeState = ({ set }) => {
     set(componentIdsState, keys);
     set(selectedIdState, keys[0]);
 
+    try {
     keys.forEach(key => {
         const value = getItem(key);
         const parsed = JSON.parse(value);
-        const fn = toFunc(parsed.src);
-        set(componentStateFamily(key), {
-            ...parsed,
-            fn,
-        });
+        try {
+            const fn = toComponent(parsed.name, parsed.src);
+            set(componentStateFamily(key), {
+                ...parsed,
+                fn,
+            });
+        } catch(e) {
+            set(componentStateFamily(key), parsed);
+        }
     })
+    } catch(e) {
+        console.error("Failed to initialise state");
+    }
 }

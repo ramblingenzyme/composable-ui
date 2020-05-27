@@ -7,7 +7,7 @@ import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism-tomorrow';
 
 import ComponentSelector from "./ComponentSelector"
-import { toFunc } from "./utils"
+import { toComponent } from "./utils"
 import { componentStateFamily } from "./state";
 import { setItem } from "./storage.js";
 
@@ -19,6 +19,7 @@ export default function ComponentEditor (props) {
 
     const onChangeName = (e) => {
         setName(e.target.value);
+        setError(null);
     }
 
     const handleSubmit = () => {
@@ -27,7 +28,7 @@ export default function ComponentEditor (props) {
                 ...component,
                 name,
                 src: code,
-                fn: toFunc(code),
+                fn: toComponent(name, code),
             });
             setItem(
                 props.selectedId,

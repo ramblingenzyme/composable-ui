@@ -9,10 +9,6 @@ import { initializeState } from "./platform/state";
 import useListen from "./platform/hooks/useListen";
 import useDispatch from "./platform/hooks/useDispatch";
 
-window.React = React;
-window.useListen = useListen;
-window.useDispatch = useDispatch;
-
 function App() {
   return (
     <RecoilRoot initializeState={initializeState}>
