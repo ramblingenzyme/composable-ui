@@ -3,7 +3,7 @@ import { atom, selector } from "recoil";
 import { v4 as uuid } from "uuid";
 
 import { getAllKeys, getItem } from "./storage.js";
-import { toComponent } from "./utils"
+import { escapeFnName, toComponent } from "./utils"
 
 const DEFAULT_UUID = uuid();
 
@@ -24,7 +24,7 @@ export const componentIdsState = atom({
 export const selectedIdState = atom({
     key: "selected-id",
     default: DEFAULT_UUID,
-})
+});
 
 export const selectComponentOptions = selector({
     key: "component-options",
@@ -34,6 +34,19 @@ export const selectComponentOptions = selector({
             id,
             name: get(componentStateFamily(id)).name,
         }))
+    }
+});
+
+export const selectComponentScope = selector({
+    key: "component-scope",
+    get: ({ get }) => {
+        const ids = get(componentIdsState);
+        const components = ids.map(id => {
+            const { name, fn } = get(componentStateFamily(id));
+            return [escapeFnName(name), fn];
+        });
+
+        return Object.fromEntries(components);
     }
 })
 
@@ -63,4 +76,4 @@ export const initializeState = ({ set }) => {
     } catch(e) {
         console.error("Failed to initialise state");
     }
-}
+};

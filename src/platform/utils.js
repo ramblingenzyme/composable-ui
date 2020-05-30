@@ -1,15 +1,15 @@
-import { transform } from "sucrase";
+import { capitalize, trim } from "lodash";
 import React from "react";
+import { transform } from "sucrase";
 import useListen from "./hooks/useListen";
 import useDispatch from "./hooks/useDispatch";
-import { capitalize, trim } from "lodash";
 
 const transpile = src => transform(
     src,
     { transforms: ["jsx"] }
 ).code;
 
-const escapeFnName = (name) => trim(name)
+export const escapeFnName = (name) => trim(name)
     .split(" ")
     .map(capitalize)
     .join("");

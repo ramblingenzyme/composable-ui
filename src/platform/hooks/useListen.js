@@ -4,7 +4,7 @@ import { useEffect } from "react";
 export default function useListen(actionType, handler) {
     useEffect(() => {
         const listener = (action) => {
-            if (action.type === actionType) {
+            if (actionType === "*" || action.type === actionType) {
                 handler(action);
             }
         }
