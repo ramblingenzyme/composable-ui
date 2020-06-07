@@ -46,21 +46,27 @@ const ComponentChrome = (props) => {
     )
 }
 
-export default function ComponentRenderer(props) {
-    const { fn: Component } = useRecoilValue(componentStateFamily(props.id));
-
+export function DumbRenderer({ id, Component }) {
     if (!Component) {
         return null;
     }
 
     return (
-        <ComponentChrome id={props.id}>
+        <ComponentChrome id={id}>
             <ErrorBoundary
-                FallbackComponent={getErrorFallback(props.id)}
+                FallbackComponent={getErrorFallback(id)}
                 resetKeys={[Component]}
             >
                 <Component />
             </ErrorBoundary>
         </ComponentChrome>
-    )
+    );
+}
+
+export default function ComponentRenderer(props) {
+    const { fn } = useRecoilValue(componentStateFamily(props.id));
+
+    return (
+        <DumbRenderer id={props.id} Component={fn} />
+    );
 }

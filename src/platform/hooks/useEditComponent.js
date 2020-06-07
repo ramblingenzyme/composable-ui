@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import { toComponent } from "../utils"
@@ -12,12 +12,20 @@ const useEditComponent = (id) => {
     const [code, setCode] = useState(component.src);
     const [error, setError] = useState(null);
 
+    const updateComponent = (updated) => setComponent({
+        ...component,
+        ...updated,
+    })
+
+    useEffect(() => {
+        const { name, src } = component;
+        setName(name);
+        setCode(src);
+        setError(null);
+    }, [component, id]);
+
     const changeName = (newName) => {
         setName(newName);
-        setComponent({
-            ...component,
-            name: newName,
-        });
         setError(null);
     };
 
@@ -26,22 +34,12 @@ const useEditComponent = (id) => {
         setError(null);
     };
 
-    const updateComponent = () => {
-        setComponent({
-            ...component,
-            name,
-            src: code,
-            fn: toComponent(name, code, componentScope),
-        });
-        setItem(
-            id,
-            JSON.stringify({ name, src: code })
-        );
-    };
-
     const handleSubmit = () => {
         try {
-            updateComponent();
+            // Update name separately so that it goes through if the code fails
+            updateComponent({ name });
+            updateComponent({ src: code, fn: toComponent(name, code, componentScope) });
+            setItem(id, JSON.stringify({ name, src: code }));
         } catch(e) {
             console.log(e);
             setError(e.message);
@@ -50,10 +48,16 @@ const useEditComponent = (id) => {
         }
     };
 
+    const DraftComponent = useMemo(
+        () => toComponent(name, code, componentScope),
+        [name, code, componentScope]
+    );
+
     return {
         changeCode,
         changeName,
         code,
+        DraftComponent,
         error,
         handleSubmit,
         name,

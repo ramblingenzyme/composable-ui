@@ -1,29 +1,34 @@
-import React from "react";
+import { ErrorBoundary } from 'react-error-boundary'
 import { highlight, languages } from 'prismjs/components/prism-core';
+import { useRecoilState } from "recoil";
+import { v4 as uuid } from "uuid";
+import React from "react";
 
-import ComponentSelector from "./ComponentSelector"
+import { componentIdsState, selectedIdState } from "./state";
+
+import { DumbRenderer } from "./ComponentRenderer";
+import ComponentSelector from "./ComponentSelector";
 import Editor from "./Editor";
 import useEditComponent from "./hooks/useEditComponent";
 
-export default function ComponentEditor ({ addNew, selectedId }) {
+export default function ComponentEditor () {
+    const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
+    const [componentIds, setComponentIds] = useRecoilState(componentIdsState)
     const {
         changeCode,
         changeName,
+        DraftComponent,
         handleSubmit,
         name,
         code,
         error,
     } = useEditComponent(selectedId);
 
-    const header = (
-        <div className="editor-toolbar">
-            <ComponentSelector />
-            <button type="button" onClick={addNew}>New component</button>
-            <label htmlFor={selectedId}>
-                <input value={name} onChange={e => changeName(e.target.value)} />
-            </label>
-        </div>
-    );
+    const addNew = () => {
+        const newId = uuid();
+        setComponentIds([...componentIds, newId])
+        setSelectedId(newId);
+    }
 
     const footer = (
         <>
@@ -33,17 +38,30 @@ export default function ComponentEditor ({ addNew, selectedId }) {
     );
 
     return (
-        <Editor
-            header={header}
-            footer={footer}
-            onSubmit={handleSubmit}
-            autoFocus
-            padding={10}
-            id={selectedId}
-            highlight={code => highlight(code, languages.js)}
-            value={code}
-            onValueChange={changeCode}
-            preClassName="language-jsx"
-        />
+        <>
+            <div>
+                <div className="editor-toolbar">
+                    <ComponentSelector />
+                    <button type="button" onClick={addNew}>New component</button>
+                    <label htmlFor={selectedId}>
+                        <input value={name} onChange={e => changeName(e.target.value)} />
+                    </label>
+                </div>
+                <Editor
+                    footer={footer}
+                    onSubmit={handleSubmit}
+                    autoFocus
+                    padding={10}
+                    id={selectedId}
+                    highlight={code => highlight(code, languages.js)}
+                    value={code}
+                    onValueChange={changeCode}
+                    preClassName="language-jsx"
+                />
+            </div>
+            <div className="components">
+                <DumbRenderer id={selectedId} Component={DraftComponent} />
+            </div>
+        </>
     )
 }

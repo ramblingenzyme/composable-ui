@@ -28,6 +28,7 @@ export const toFunc = (src) => {
 
 const defaultScope = {
     React,
+    ...React,
     useListen,
     useDispatch,
 }

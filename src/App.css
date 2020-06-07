@@ -7,6 +7,11 @@
     grid-gap: 20px;
     margin-left: 10px;
     margin-right: 10px;
+    grid-template-columns: 1fr 1fr;
+}
+
+.header {
+    grid-column: 1 / 3;
 }
 
 .editor-container {
@@ -16,6 +21,8 @@
 
 .editor-toolbar {
     display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 .editor-toolbar > label {
@@ -54,6 +61,7 @@
 
 .component-header > p {
     margin: 0;
+    padding: 0px 10px;
     flex-grow: 1;
 }
 
