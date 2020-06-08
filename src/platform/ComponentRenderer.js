@@ -46,7 +46,9 @@ const ComponentChrome = (props) => {
     )
 }
 
-export function DumbRenderer({ id, Component }) {
+export default function ComponentRenderer({ id }) {
+    const { fn: Component } = useRecoilValue(componentStateFamily(id));
+
     if (!Component) {
         return null;
     }
@@ -60,13 +62,5 @@ export function DumbRenderer({ id, Component }) {
                 <Component />
             </ErrorBoundary>
         </ComponentChrome>
-    );
-}
-
-export default function ComponentRenderer(props) {
-    const { fn } = useRecoilValue(componentStateFamily(props.id));
-
-    return (
-        <DumbRenderer id={props.id} Component={fn} />
     );
 }

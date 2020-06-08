@@ -3,6 +3,7 @@ import React from "react";
 import { transform } from "sucrase";
 import useListen from "./hooks/useListen";
 import useDispatch from "./hooks/useDispatch";
+import useStorage from "./hooks/useStorage";
 
 const transpile = src => transform(
     src,
@@ -31,6 +32,7 @@ const defaultScope = {
     ...React,
     useListen,
     useDispatch,
+    useStorage,
 }
 
 export const toComponent = (name, src, args = {}) => {

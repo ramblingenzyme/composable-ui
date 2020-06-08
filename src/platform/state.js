@@ -2,15 +2,14 @@ import memoize from "lodash/memoize";
 import { atom, selector } from "recoil";
 import { v4 as uuid } from "uuid";
 
-import { getAllKeys, getItem } from "./storage.js";
-import { escapeFnName, toComponent } from "./utils"
+import { escapeFnName } from "./utils"
 
 const DEFAULT_UUID = uuid();
 
 export const componentStateFamily = memoize((id) => atom({
     key: `user-component-${id}`,
     default: {
-        name: `New component (${id})`,
+        name: `New component-${id}`,
         src: "",
         fn: null,
     },
@@ -50,30 +49,12 @@ export const selectComponentScope = selector({
     }
 })
 
-export const initializeState = ({ set }) => {
-    const keys = getAllKeys();
-    if (!keys.length) {
-        return;
-    }
-
+export const initializeState = ({ keys, components }) => ({ set }) => {
     set(componentIdsState, keys);
     set(selectedIdState, keys[0]);
 
-    try {
-    keys.forEach(key => {
-        const value = getItem(key);
-        const parsed = JSON.parse(value);
-        try {
-            const fn = toComponent(parsed.name, parsed.src);
-            set(componentStateFamily(key), {
-                ...parsed,
-                fn,
-            });
-        } catch(e) {
-            set(componentStateFamily(key), parsed);
-        }
-    })
-    } catch(e) {
-        console.error("Failed to initialise state");
-    }
+    components.forEach(([key, component]) => set(
+        componentStateFamily(key),
+        component,
+    ));
 };

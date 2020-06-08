@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import { toComponent } from "../utils"
@@ -48,16 +48,10 @@ const useEditComponent = (id) => {
         }
     };
 
-    const DraftComponent = useMemo(
-        () => toComponent(name, code, componentScope),
-        [name, code, componentScope]
-    );
-
     return {
         changeCode,
         changeName,
         code,
-        DraftComponent,
         error,
         handleSubmit,
         name,

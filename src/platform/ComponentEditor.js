@@ -1,4 +1,3 @@
-import { ErrorBoundary } from 'react-error-boundary'
 import { highlight, languages } from 'prismjs/components/prism-core';
 import { useRecoilState } from "recoil";
 import { v4 as uuid } from "uuid";
@@ -6,7 +5,7 @@ import React from "react";
 
 import { componentIdsState, selectedIdState } from "./state";
 
-import { DumbRenderer } from "./ComponentRenderer";
+import ComponentRenderer from "./ComponentRenderer";
 import ComponentSelector from "./ComponentSelector";
 import Editor from "./Editor";
 import useEditComponent from "./hooks/useEditComponent";
@@ -17,7 +16,6 @@ export default function ComponentEditor () {
     const {
         changeCode,
         changeName,
-        DraftComponent,
         handleSubmit,
         name,
         code,
@@ -59,9 +57,7 @@ export default function ComponentEditor () {
                     preClassName="language-jsx"
                 />
             </div>
-            <div className="components">
-                <DumbRenderer id={selectedId} Component={DraftComponent} />
-            </div>
+            <ComponentRenderer id={selectedId} />
         </>
     )
 }

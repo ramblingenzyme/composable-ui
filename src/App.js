@@ -13,11 +13,11 @@ import useListen from "./platform/hooks/useListen";
 import Renderer from './platform/Renderer';
 import { initializeState } from "./platform/state";
 
-function App() {
+function App({ initialState }) {
     const [activeView, setActiveView] = useState("components");
 
     return (
-        <RecoilRoot initializeState={initializeState}>
+        <RecoilRoot initializeState={initializeState(initialState)}>
             <Header setActive={setActiveView} />
             {activeView === "components" && <ComponentEditor />}
             {activeView === "desktop" && <Renderer />}
