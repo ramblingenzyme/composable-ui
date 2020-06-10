@@ -1,28 +1,30 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import { toComponent } from "../utils"
-import { componentStateFamily, selectComponentScope } from "../state";
+import { componentStateFamily } from "../state";
 import { setItem } from "../storage.js";
 
 const useEditComponent = (id) => {
     const [component, setComponent] = useRecoilState(componentStateFamily(id));
-    const componentScope = useRecoilValue(selectComponentScope);
     const [name, setName] = useState(component.name);
     const [code, setCode] = useState(component.src);
     const [error, setError] = useState(null);
+    const previousId = useRef(id);
+
+    useEffect(() => {
+        if (id !== previousId.current) {
+            setName(component.name);
+            setCode(component.src);
+            setError(null);
+            previousId.current = id;
+        }
+    }, [id, component])
 
     const updateComponent = (updated) => setComponent({
         ...component,
         ...updated,
     })
-
-    useEffect(() => {
-        const { name, src } = component;
-        setName(name);
-        setCode(src);
-        setError(null);
-    }, [component, id]);
 
     const changeName = (newName) => {
         setName(newName);
@@ -34,11 +36,11 @@ const useEditComponent = (id) => {
         setError(null);
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = (event) => {
         try {
             // Update name separately so that it goes through if the code fails
             updateComponent({ name });
-            updateComponent({ src: code, fn: toComponent(name, code, componentScope) });
+            updateComponent({ src: code, fn: toComponent(name, code) });
             setItem(id, JSON.stringify({ name, src: code }));
         } catch(e) {
             console.log(e);
