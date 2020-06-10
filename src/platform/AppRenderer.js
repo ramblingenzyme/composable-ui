@@ -3,13 +3,24 @@ import { useRecoilValue } from "recoil";
 import { v4 as uuid } from "uuid";
 
 import ComponentRenderer from "./ComponentRenderer";
-import { componentIdsState } from "./state";
+import Renderer from "./Renderer";
+import { applicationStateFamily, applicationIdsState } from "./state";
 
-export default function Renderer (props) {
-    const componentIds = useRecoilValue(componentIdsState);
+function AppRenderer({ id }) {
+    const { fn: Application } = useRecoilValue(applicationStateFamily(id))
 
-    const elements = componentIds.map(id => (
-        <ComponentRenderer key={id} id={id} />
+    return (
+        <Renderer>
+            <Application />
+        </Renderer>
+    )
+}
+
+export default function AppsRenderer(props) {
+    const appIds = useRecoilValue(applicationIdsState);
+
+    const elements = appIds.map(id => (
+        <AppRenderer key={id} id={id} />
     ));
 
     return (

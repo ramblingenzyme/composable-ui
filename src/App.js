@@ -10,7 +10,7 @@ import Header from "./Header";
 import ComponentEditor from "./platform/ComponentEditor";
 import useDispatch from "./platform/hooks/useDispatch";
 import useListen from "./platform/hooks/useListen";
-import Renderer from './platform/Renderer';
+import AppRenderer from './platform/AppRenderer';
 import { initializeState } from "./platform/state";
 
 function App({ initialState }) {
@@ -20,7 +20,7 @@ function App({ initialState }) {
         <RecoilRoot initializeState={initializeState(initialState)}>
             <Header setActive={setActiveView} />
             {activeView === "components" && <ComponentEditor />}
-            {activeView === "desktop" && <Renderer />}
+            {activeView === "desktop" && <AppRenderer />}
         </RecoilRoot>
     );
 }

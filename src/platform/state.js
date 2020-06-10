@@ -6,24 +6,40 @@ import { escapeFnName } from "./utils"
 
 const DEFAULT_UUID = uuid();
 
-export const componentStateFamily = memoize((id) => atom({
-    key: `user-component-${id}`,
-    default: {
-        name: `New component-${id}`,
-        src: "",
-        fn: null,
-    },
-}));
+const getFamily = (key, familyDefault = {}, idDefault = [], selectedDefault = idDefault[0]) => [
+    memoize(id => atom({
+        key: `${key}-${id}`,
+        default: familyDefault,
+    })),
+    atom({
+        key: `${key}-ids`,
+        default: idDefault,
+    }),
+    atom({
+        key: `${key}-selected`,
+        default: selectedDefault,
+    }),
+];
 
-export const componentIdsState = atom({
-    key: "user-component-ids",
-    default: [DEFAULT_UUID],
+export const [
+    applicationStateFamily,
+    applicationIdsState,
+    selectedApplication,
+] = getFamily("user-app", {
+    name: "New app",
+    src: "",
+    fn: null,
 });
 
-export const selectedIdState = atom({
-    key: "selected-id",
-    default: DEFAULT_UUID,
-});
+export const [
+    componentStateFamily,
+    componentIdsState,
+    selectedIdState,
+] = getFamily("user-component", {
+    name: "New component",
+    src: "",
+    fn: null,
+}, [DEFAULT_UUID])
 
 export const selectComponentOptions = selector({
     key: "component-options",
