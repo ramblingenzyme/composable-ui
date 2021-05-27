@@ -18,7 +18,9 @@
     "sucrase": "^3.18.1"
   },
   "scripts": {
-    "start": "parcel public/index.html"
+    "start": "parcel public/index.html",
+    "build": "rm -rf dist && parcel build --no-scope-hoist public/index.html",
+    "publish": "surge dist past-writer.surge.sh"
   },
   "browserslist": {
     "production": [
@@ -34,6 +36,7 @@
     "@babel/core": "^7.14.3",
     "@babel/preset-env": "^7.14.2",
     "@babel/preset-react": "^7.13.13",
-    "parcel": "^2.0.0-beta.2"
+    "parcel": "^2.0.0-beta.2",
+    "surge": "^0.23.0"
   }
 }
