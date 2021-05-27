@@ -8,7 +8,7 @@ import { toComponent } from "./platform/utils";
 const getData = async () => {
     const keys = await getAllKeys();
     if (!keys.length) {
-        return;
+        return {};
     }
 
     const components = await Promise.all(keys.map(async key => {

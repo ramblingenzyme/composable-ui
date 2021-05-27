@@ -66,6 +66,10 @@ export const selectComponentScope = selector({
 })
 
 export const initializeState = ({ keys, components }) => ({ set }) => {
+    if (!(keys || components)) {
+        return;
+    }
+
     set(componentIdsState, keys);
     set(selectedIdState, keys[0]);
 
