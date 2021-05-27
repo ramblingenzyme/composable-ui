@@ -28,7 +28,7 @@ export default function ComponentRenderer({ id }) {
     const select = () => setSelectedId(id);
 
     return (
-        <ComponentChrome name={name} remove={remove} select={select}>
+        <ComponentChrome name={name} reset={remove} select={select}>
             <Renderer>
                 <Component />
             </Renderer>
