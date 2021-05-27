@@ -6,8 +6,8 @@ export default function ComponentChrome({ children, name, reset, select }) {
             <div className="component-header">
                 <p>{name}</p>
                 <div>
-                    <button onClick={select}>Edit</button>
-                    <button onClick={reset}>Remove</button>
+                    {select && <button onClick={select}>Edit</button>}
+                    {reset && <button onClick={reset}>Remove</button>}
                 </div>
             </div>
             {children}
