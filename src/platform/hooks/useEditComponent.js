@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-
-import { toComponent } from "../utils"
-import { componentStateFamily } from "../state";
-import { setItem } from "../storage.js";
+import { useStore } from "../state";
 
 const useEditComponent = (id) => {
-    const [component, setComponent] = useRecoilState(componentStateFamily(id));
+    const [component, setComponent] = useStore(state => [
+        state.components[id] || {},
+        state.setComponent
+    ])
+
     const [name, setName] = useState(component.name);
     const [code, setCode] = useState(component.src);
     const [error, setError] = useState(null);
@@ -21,7 +21,7 @@ const useEditComponent = (id) => {
         }
     }, [id, component])
 
-    const updateComponent = (updated) => setComponent({
+    const updateComponent = (updated) => setComponent(id, {
         ...component,
         ...updated,
     })
@@ -38,10 +38,7 @@ const useEditComponent = (id) => {
 
     const handleSubmit = (event) => {
         try {
-            // Update name separately so that it goes through if the code fails
-            updateComponent({ name });
-            updateComponent({ src: code, fn: toComponent(name, code) });
-            setItem(id, JSON.stringify({ name, src: code }));
+            updateComponent({ name, src: code });
         } catch(e) {
             console.log(e);
             setError(e.message);

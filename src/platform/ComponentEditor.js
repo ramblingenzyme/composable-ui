@@ -1,9 +1,8 @@
 import { highlight, languages } from 'prismjs/components/prism-core';
-import { useRecoilState } from "recoil";
 import { v4 as uuid } from "uuid";
 import React from "react";
 
-import { componentIdsState, selectedIdState } from "./state";
+import { useStore } from "./state";
 
 import ComponentRenderer from "./ComponentRenderer";
 import ComponentSelector from "./ComponentSelector";
@@ -11,8 +10,16 @@ import Editor from "./Editor";
 import useEditComponent from "./hooks/useEditComponent";
 
 export default function ComponentEditor () {
-    const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
-    const [componentIds, setComponentIds] = useRecoilState(componentIdsState)
+    const {
+        selectedId,
+        setComponent,
+        setSelectedId,
+    } = useStore(state => ({
+        selectedId: state.selectedComponent,
+        setComponent: state.setComponent,
+        setSelectedId: state.setSelectedComponent,
+    }));
+
     const {
         changeCode,
         changeName,
@@ -24,7 +31,7 @@ export default function ComponentEditor () {
 
     const addNew = () => {
         const newId = uuid();
-        setComponentIds([...componentIds, newId])
+        setComponent(newId);
         setSelectedId(newId);
     }
 

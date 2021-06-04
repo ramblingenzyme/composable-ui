@@ -1,12 +1,14 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
 
 import ComponentChrome from "./ComponentChrome"
 import Renderer from "./Renderer";
-import { componentStateFamily, componentIdsState } from "./state";
+import { useStore }  from "./state";
 
 function AppRenderer({ id }) {
-    const { fn: Application, name } = useRecoilValue(componentStateFamily(id))
+    const [Application, name] = useStore(state => [
+        state.functions[id],
+        state.components[id]?.name,
+    ])
 
     return (
         <ComponentChrome name={name}>
@@ -18,7 +20,7 @@ function AppRenderer({ id }) {
 }
 
 export default function AppsRenderer(props) {
-    const appIds = useRecoilValue(componentIdsState);
+    const appIds = useStore(state => Object.keys(state.components));
 
     const elements = appIds.map(id => (
         <AppRenderer key={id} id={id} />

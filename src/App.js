@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { RecoilRoot } from "recoil"
 
 import './App.css';
 
@@ -8,15 +7,15 @@ import ComponentEditor from "./platform/ComponentEditor";
 import AppRenderer from './platform/AppRenderer';
 import { initializeState } from "./platform/state";
 
-function App({ initialState }) {
+function App() {
     const [activeView, setActiveView] = useState("components");
 
     return (
-        <RecoilRoot initializeState={initializeState(initialState)}>
+        <>
             <Header setActive={setActiveView} />
             {activeView === "components" && <ComponentEditor />}
             {activeView === "desktop" && <AppRenderer />}
-        </RecoilRoot>
+        </>
     );
 }
 
