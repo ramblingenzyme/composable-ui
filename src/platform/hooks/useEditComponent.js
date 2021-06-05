@@ -3,7 +3,7 @@ import { useStore } from "../../state";
 
 const useEditComponent = (id) => {
     const [component, setComponent] = useStore(state => [
-        state.components[id] || {},
+        state.components?.[id] || {},
         state.setComponent
     ])
 

@@ -26,13 +26,14 @@ const initialState = (set, get) => ({
     ...getActions(ACTIONS, set, get),
 });
 
-export const useStore = create(persist(
-    initialState,
-    {
-        name: 'composable-ui',
-        getStorage: () => localForage,
-        blacklist: ["functions"],
-    } 
-));
+const persistConfig = {
+    name: 'composable-ui',
+    getStorage: () => localForage,
+    blacklist: ["functions"],
+}
+
+export const useStore = initialState
+    |> (_ => persist(_, persistConfig))
+    |> create;
 
 useStore.subscribe(console.log)

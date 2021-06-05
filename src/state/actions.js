@@ -6,7 +6,12 @@ const removeKey = (obj, key) => {
     return clone;
 }
 
-const setComponent = set => (id, component) => set(state => ({ 
+const DEFAULT_COMPONENT = {
+    name: "New Component",
+    src: '',
+}
+
+const setComponent = set => (id, component = DEFAULT_COMPONENT) => set(state => ({
     components: {
         ...state.components,
         [id]: component
