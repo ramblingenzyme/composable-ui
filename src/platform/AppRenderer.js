@@ -1,29 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import ComponentChrome from "./components/ComponentChrome"
 import Renderer from "./Renderer";
 import { useStore }  from "../state";
+import useDispatch from "./hooks/useDispatch";
+import useListen from "./hooks/useListen";
+import useStorage from "./hooks/useStorage";
+import { toComponent } from "./utils";
 
-function AppRenderer({ id }) {
-    const [Application, name] = useStore(state => [
-        state.functions[id],
-        state.components[id]?.name,
-    ])
+function ComponentRenderer({ id, scope }) {
+    const component = useStore(state => state.components[id]);
+
+    const [Component, setComponent] = useState();
+
+    useEffect(() => {
+        if (component && scope) {
+            const fn = toComponent(component.name, component.src, scope)
+            setComponent(() => fn);
+        }
+    }, [component, scope]);
+
+    if (!Component) {
+        return <ComponentChrome name={component.name} />;
+    }
 
     return (
-        <ComponentChrome name={name}>
+        <ComponentChrome name={component.name}>
             <Renderer>
-                <Application />
+                <Component />
             </Renderer>
         </ComponentChrome>
     )
 }
 
 export default function AppsRenderer(props) {
-    const appIds = useStore(state => Object.keys(state.components));
+    const [components, application] = useStore(state => [
+        Object.keys(state.components),
+        state.selectedApplication
+    ]);
 
-    const elements = appIds.map(id => (
-        <AppRenderer key={id} id={id} />
+    const [scope, setScope] = useState();
+
+    useEffect(() => {
+        setScope({
+            useDispatch: useDispatch(application),
+            useListen: useListen(application),
+            useStorage: useStorage(application),
+        })
+    }, [application]);
+
+    const elements = components.map(id => (
+        <ComponentRenderer key={id} id={id} scope={scope} />
     ));
 
     return (

@@ -5,24 +5,30 @@ import localForage from 'localforage';
 
 import ACTIONS from "./actions";
 
-const DEFAULT_UUID = uuid();
+const DEFAULT_APPLICATION_UUID = uuid();
+const DEFAULT_COMPONENT_UUID = uuid();
 
 const map = fn => arr => arr.map(fn);
-const mapPairs = fn => map(([key, val]) => [key, fn(val, key)]);
+const mapValues = fn => map(([key, val]) => [key, fn(val, key)]);
+const mapKeys = fn => map(([key,val]) => [fn(val, key), val]);
 
 const objectMap = (fn, obj) => obj
     |> Object.entries
-    |> mapPairs(fn)
+    |> mapValues(fn)
     |> Object.fromEntries;
 
 const getActions = (actions, set, get) => objectMap((fn, key) => fn(set, get), actions);
 
 const initialState = (set, get) => ({
+    applications: {
+        [DEFAULT_APPLICATION_UUID]: { name: "New Application", components: [DEFAULT_APPLICATION_UUID] }
+    },
     components: {
-        [DEFAULT_UUID]: { src: '', name: "New Component" }
+        [DEFAULT_COMPONENT_UUID]: { src: '', name: "New Component" }
      },
     functions: { },
-    selectedComponent: DEFAULT_UUID,
+    selectedApplication: DEFAULT_APPLICATION_UUID,
+    selectedComponent: DEFAULT_COMPONENT_UUID,
     ...getActions(ACTIONS, set, get),
 });
 

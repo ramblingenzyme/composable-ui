@@ -2,7 +2,7 @@ import { toComponent } from "../platform/utils"
 
 const removeKey = (obj, key) => {
     const clone = {...obj};
-    delete clone[id];
+    delete clone[key];
     return clone;
 }
 

@@ -15,40 +15,48 @@ export const escapeFnName = (name) => trim(name)
     .map(capitalize)
     .join("");
 
-const parseArgs = (args = {}) => ({
-    names: Object.keys(args),
-    values: Object.values(args),
-});
+const parseArgs = (args = {}) => [
+    Object.keys(args),
+    Object.values(args),
+];
 
-export const toFunc = (src) => {
+export const toFunc = (src, ...args) => {
     const transformed = transpile(src);
     // eslint-disable-next-line no-new-func
-    const fn = new Function(transformed)
+    console.log(transformed);
+    const fn = new Function(...args, transformed)
     return fn;
 };
 
 const defaultScope = {
     React,
     ...React,
-    useListen,
-    useDispatch,
-    useStorage,
+    useListen: useListen(),
+    useDispatch: useDispatch(),
+    useStorage: useStorage("app"),
 }
 
 export const toComponent = (name, src, args = {}) => {
     const safeName = escapeFnName(name);
     const transformed = transpile(src);
-    const { names, values } = parseArgs({
-        ...args,
-        ...defaultScope,
-    });
 
-    const generator = new Function(...names, `
+    const scope = {
+        ...defaultScope,
+        ...args,
+    }
+
+    if (scope[safeName]) {
+        delete scope[safeName];
+    }
+
+    const [scopeVariableNames, scopeVariableValues] = parseArgs(scope);
+
+    const generator = new Function(...scopeVariableNames, `
         return function ${safeName} (props) {
             ${transformed}
         }
     `);
 
-    return generator(...values);
+    return generator(...scopeVariableValues);
 }
 

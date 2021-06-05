@@ -1,7 +1,7 @@
-import { emitter } from "../const";
 import { useEffect } from "react";
+import { emitter } from "../const";
 
-export default function useListen(actionType, handler) {
+const useListen = (id = "default") => (actionType, handler) => {
     useEffect(() => {
         const listener = (action) => {
             if (actionType === "*" || action.type === actionType) {
@@ -9,7 +9,9 @@ export default function useListen(actionType, handler) {
             }
         }
 
-        emitter.on("action", listener);
-        return () => emitter.off("action", listener);
+        emitter.on(`${id}_action`, listener);
+        return () => emitter.off(`${id}_action`, listener);
     }, [actionType, handler]);
 }
+
+export default useListen;
