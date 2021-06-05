@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import './App.css';
 
 import Header from "./Header";
-import ComponentEditor from "./platform/ComponentEditor";
+import ComponentEditor from "./platform/components/ComponentEditor";
 import AppRenderer from './platform/AppRenderer';
-import { initializeState } from "./platform/state";
+import { initializeState } from "./state";
 
 function App() {
     const [activeView, setActiveView] = useState("components");

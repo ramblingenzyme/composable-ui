@@ -2,12 +2,12 @@ import { highlight, languages } from 'prismjs/components/prism-core';
 import { v4 as uuid } from "uuid";
 import React from "react";
 
-import { useStore } from "./state";
+import { useStore } from "../../state";
+import Editor from "../Editor";
+import useEditComponent from "../hooks/useEditComponent";
 
 import ComponentRenderer from "./ComponentRenderer";
 import ComponentSelector from "./ComponentSelector";
-import Editor from "./Editor";
-import useEditComponent from "./hooks/useEditComponent";
 
 export default function ComponentEditor () {
     const {

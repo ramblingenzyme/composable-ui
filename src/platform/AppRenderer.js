@@ -1,8 +1,8 @@
 import React from "react";
 
-import ComponentChrome from "./ComponentChrome"
+import ComponentChrome from "./components/ComponentChrome"
 import Renderer from "./Renderer";
-import { useStore }  from "./state";
+import { useStore }  from "../state";
 
 function AppRenderer({ id }) {
     const [Application, name] = useStore(state => [

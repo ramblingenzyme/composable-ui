@@ -1,8 +1,9 @@
 import React from "react";
 
+import Renderer from "../Renderer";
+import { useStore } from "../../state";
+
 import ComponentChrome from "./ComponentChrome";
-import Renderer from "./Renderer";
-import { useStore } from "./state";
 
 export default function ComponentRenderer({ id }) {
     const [Component, name, removeComponent] = useStore(state => [

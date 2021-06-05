@@ -51,3 +51,4 @@ export const toComponent = (name, src, args = {}) => {
 
     return generator(...values);
 }
+

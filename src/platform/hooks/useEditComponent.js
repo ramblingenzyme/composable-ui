@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useStore } from "../state";
+import { useStore } from "../../state";
 
 const useEditComponent = (id) => {
     const [component, setComponent] = useStore(state => [

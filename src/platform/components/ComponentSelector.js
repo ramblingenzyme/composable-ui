@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useStore } from "./state";
+import { useStore } from "../../state";
 
 export default function ComponentSelector () {
     const [selectedId, setSelectedId] = useStore(state => [state.selectedComponent, state.setSelectedComponent]);
