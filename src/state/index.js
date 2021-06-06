@@ -2,20 +2,12 @@ import { v4 as uuid } from "uuid";
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 import localForage from 'localforage';
+import { objectMap } from "../helpers";
 
 import ACTIONS from "./actions";
 
 const DEFAULT_APPLICATION_UUID = uuid();
 const DEFAULT_COMPONENT_UUID = uuid();
-
-const map = fn => arr => arr.map(fn);
-const mapValues = fn => map(([key, val]) => [key, fn(val, key)]);
-const mapKeys = fn => map(([key,val]) => [fn(val, key), val]);
-
-const objectMap = (fn, obj) => obj
-    |> Object.entries
-    |> mapValues(fn)
-    |> Object.fromEntries;
 
 const getActions = (actions, set, get) => objectMap((fn, key) => fn(set, get), actions);
 
