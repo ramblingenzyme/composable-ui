@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import './App.css';
-
 import Header from "./Header";
 import ComponentEditor from "./platform/components/ComponentEditor";
 import AppRenderer from './platform/AppRenderer';
