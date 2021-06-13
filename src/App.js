@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 
 import Header from "./Header";
 import ComponentEditor from "./platform/components/ComponentEditor";
+import ComponentScope from "./platform/components/ComponentScope";
 import StyleEditor from "./platform/styles";
 import AppRenderer from './platform/AppRenderer';
 import { initializeState, useStore } from "./state";
+import { defaultScope } from "./platform/utils";
 
 const useSyncStyles = () => {
     const css = useStore(store => store.css);
@@ -25,7 +27,12 @@ function App() {
         <>
             <Header setActive={setActiveView} />
             {activeView === "styles" && <StyleEditor />}
-            {activeView === "components" && <ComponentEditor />}
+            {activeView === "components" && (
+                <>
+                    <ComponentScope scope={defaultScope} />
+                    <ComponentEditor />
+                </>
+            )}
             {activeView === "desktop" && <AppRenderer />}
         </>
     );
