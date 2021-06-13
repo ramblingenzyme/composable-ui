@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { map } from "lodash/fp";
 
 import ComponentChrome from "./components/ComponentChrome"
 import Renderer from "./Renderer";
@@ -7,7 +8,6 @@ import useDispatch from "./hooks/useDispatch";
 import useListen from "./hooks/useListen";
 import useStorage from "./hooks/useStorage";
 import { toComponent } from "./utils";
-import { map } from "../helpers";
 
 function ComponentRenderer({ component: Component, name }) {
     if (!Component) {
@@ -52,9 +52,9 @@ export default function AppsRenderer(props) {
 
     }, [application, components]);
 
-    const elements = fns.map(fn => (
+    const elements = map(fn => (
         <ComponentRenderer key={fn.name} name={fn.name} component={fn.fn} />
-    ));
+    ), fns);
 
     return (
         <div className="components">

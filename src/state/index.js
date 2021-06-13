@@ -2,14 +2,14 @@ import { v4 as uuid } from "uuid";
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 import localForage from 'localforage';
-import { objectMap } from "../helpers";
+import { mapValues } from "lodash/fp";
 
 import ACTIONS from "./actions";
 
 const DEFAULT_APPLICATION_UUID = uuid();
 const DEFAULT_COMPONENT_UUID = uuid();
 
-const getActions = (actions, set, get) => objectMap((fn, key) => fn(set, get), actions);
+const getActions = (actions, set, get) => mapValues((fn, key) => fn(set, get), actions);
 
 const initialState = (set, get) => ({
     applications: {
