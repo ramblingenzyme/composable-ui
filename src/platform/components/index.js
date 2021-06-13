@@ -9,14 +9,14 @@ const ComponentsPage = () => {
   const selectedId = useStore((store) => store.selectedComponent);
 
   return (
-    <section className="components-page">
-      <aside className="component-scope">
+    <section className="components-page" title="Components page">
+      <aside className="component-scope" title="Component scope">
         <ComponentScope scope={defaultScope} />
       </aside>
-      <section className="component-editor">
+      <section className="component-editor" title="Component editor">
         <ComponentEditor selectedId={selectedId} />
       </section>
-      <section className="component-renderer">
+      <section className="component-renderer" title="Component renderer">
         <ComponentRenderer id={selectedId} />
       </section>
     </section>

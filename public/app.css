@@ -113,7 +113,7 @@ code {
   margin-right: 10px;
 
   display: grid;
-  grid-template-areas: "scope editor" "component component";
+  grid-template-areas: "scope editor" "scope component";
   grid-template-columns: 500px auto;
   grid-gap: 20px;
 }
