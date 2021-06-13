@@ -9,9 +9,8 @@ import useEditComponent from "../hooks/useEditComponent";
 import ComponentRenderer from "./ComponentRenderer";
 import ComponentSelector from "./ComponentSelector";
 
-export default function ComponentEditor() {
-  const { selectedId, setComponent, setSelectedId } = useStore((state) => ({
-    selectedId: state.selectedComponent,
+export default function ComponentEditor({ selectedId }) {
+  const { setComponent, setSelectedId } = useStore((state) => ({
     setComponent: state.setComponent,
     setSelectedId: state.setSelectedComponent,
   }));
@@ -34,29 +33,26 @@ export default function ComponentEditor() {
 
   return (
     <>
-      <div>
-        <div className="editor-toolbar">
-          <ComponentSelector />
-          <button type="button" onClick={addNew}>
-            New component
-          </button>
-          <label htmlFor={selectedId}>
-            <input value={name} onChange={(e) => changeName(e.target.value)} />
-          </label>
-        </div>
-        <Editor
-          footer={footer}
-          onSubmit={handleSubmit}
-          autoFocus
-          padding={10}
-          id={selectedId}
-          highlight={(code) => highlight(code, languages.js)}
-          value={code}
-          onValueChange={changeCode}
-          preClassName="language-jsx"
-        />
-      </div>
-      <ComponentRenderer id={selectedId} />
+      <header className="editor-toolbar">
+        <ComponentSelector />
+        <button type="button" onClick={addNew}>
+          New component
+        </button>
+        <label htmlFor={selectedId}>
+          <input value={name} onChange={(e) => changeName(e.target.value)} />
+        </label>
+      </header>
+      <Editor
+        footer={footer}
+        onSubmit={handleSubmit}
+        autoFocus
+        padding={10}
+        id={selectedId}
+        highlight={(code) => highlight(code, languages.js)}
+        value={code}
+        onValueChange={changeCode}
+        preClassName="language-jsx"
+      />
     </>
   );
 }
