@@ -9,6 +9,8 @@
     "@babel/preset-react"
   ],
   "plugins": [
+    "@babel/plugin-proposal-async-do-expressions",
+    "@babel/plugin-proposal-do-expressions",
     ["@babel/plugin-proposal-pipeline-operator", { "proposal": "minimal" }]
   ]
 }
