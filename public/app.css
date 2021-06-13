@@ -24,7 +24,7 @@ code {
     grid-template-columns: 1fr 1fr;
 }
 
-.header {
+.app-header {
     grid-column: 1 / 3;
 }
 
