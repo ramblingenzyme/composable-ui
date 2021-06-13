@@ -83,3 +83,39 @@ code {
   margin: 0;
   flex-shrink: 0;
 }
+
+.app-header {
+  color: white;
+  background-color: #222;
+  padding: 5px;
+}
+
+.nav-list {
+  list-style-type: none;
+  display: flex;
+  margin: 0px;
+  padding: 0px;
+}
+
+.nav-link {
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.nav-link > a {
+  color: white;
+}
+
+.nav-link > a:hover {
+  background-color: #444;
+  transition: background-color 0.2s ease-in;
+}
+
+.scope-wrapper {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.scope-details {
+  border: 2px grey;
+}
