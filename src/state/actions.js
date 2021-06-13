@@ -1,47 +1,55 @@
-import { toComponent } from "../platform/utils"
+import { toComponent } from "../platform/utils";
 
 const removeKey = (obj, key) => {
-    const clone = {...obj};
-    delete clone[key];
-    return clone;
-}
+  const clone = { ...obj };
+  delete clone[key];
+  return clone;
+};
 
 const DEFAULT_COMPONENT = {
-    name: "New Component",
-    src: '',
-}
+  name: "New Component",
+  src: "",
+};
 
-const setComponent = set => (id, component = DEFAULT_COMPONENT) => set(state => ({
-    components: {
+const setComponent =
+  (set) =>
+  (id, component = DEFAULT_COMPONENT) =>
+    set((state) => ({
+      components: {
         ...state.components,
-        [id]: component
-    },
-    functions: {
+        [id]: component,
+      },
+      functions: {
         ...state.functions,
-        [id]: component ? toComponent(component.name, component.src) : undefined
-    }
-}));
+        [id]: component
+          ? toComponent(component.name, component.src)
+          : undefined,
+      },
+    }));
 
-const setSelectedComponent = set => componentId => set({ selectedComponent: componentId });
+const setSelectedComponent = (set) => (componentId) =>
+  set({ selectedComponent: componentId });
 
-const removeComponent = set => id => set(state => {
+const removeComponent = (set) => (id) =>
+  set((state) => {
     const components = removeKey(state.components, id);
     return {
-        components,
-        functions: removeKey(state.functions, id),
-        selectedComponent: (id === state.selectedComponent) 
-            ? Object.keys(components)[0] || null
-            : state.selectedComponent
-    }
-});
+      components,
+      functions: removeKey(state.functions, id),
+      selectedComponent:
+        id === state.selectedComponent
+          ? Object.keys(components)[0] || null
+          : state.selectedComponent,
+    };
+  });
 
-const setCss = set => css => set({ css });
+const setCss = (set) => (css) => set({ css });
 
 const actions = {
-    setComponent,
-    setCss,
-    setSelectedComponent,
-    removeComponent,
-}
+  setComponent,
+  setCss,
+  setSelectedComponent,
+  removeComponent,
+};
 
 export default actions;

@@ -1,41 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 import Header from "./Header";
 import ComponentEditor from "./platform/components/ComponentEditor";
 import ComponentScope from "./platform/components/ComponentScope";
 import StyleEditor from "./platform/styles";
-import AppRenderer from './platform/AppRenderer';
+import AppRenderer from "./platform/AppRenderer";
 import { initializeState, useStore } from "./state";
 import { defaultScope } from "./platform/utils";
 
 const useSyncStyles = () => {
-    const css = useStore(store => store.css);
+  const css = useStore((store) => store.css);
 
-    useEffect(() => {
-        const node = document.getElementById("user-css");
-        if (node) {
-            node.textContent = css;
-        }
-    }, [css]);
-}
+  useEffect(() => {
+    const node = document.getElementById("user-css");
+    if (node) {
+      node.textContent = css;
+    }
+  }, [css]);
+};
 
 function App() {
-    const [activeView, setActiveView] = useState("components");
-    useSyncStyles();
+  const [activeView, setActiveView] = useState("components");
+  useSyncStyles();
 
-    return (
+  return (
+    <>
+      <Header setActive={setActiveView} />
+      {activeView === "styles" && <StyleEditor />}
+      {activeView === "components" && (
         <>
-            <Header setActive={setActiveView} />
-            {activeView === "styles" && <StyleEditor />}
-            {activeView === "components" && (
-                <>
-                    <ComponentScope scope={defaultScope} />
-                    <ComponentEditor />
-                </>
-            )}
-            {activeView === "desktop" && <AppRenderer />}
+          <ComponentScope scope={defaultScope} />
+          <ComponentEditor />
         </>
-    );
+      )}
+      {activeView === "desktop" && <AppRenderer />}
+    </>
+  );
 }
 
 export default App;
