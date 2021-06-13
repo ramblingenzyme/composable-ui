@@ -1,4 +1,6 @@
 import { capitalize, trim } from "lodash";
+import { filter, map } from "lodash/fp";
+
 import React from "react";
 import { transform } from "sucrase";
 import useListen from "./hooks/useListen";
@@ -28,9 +30,14 @@ export const toFunc = (src, ...args) => {
     return fn;
 };
 
-const defaultScope = {
+const reactHooks = React
+    |> Object.entries
+    |> filter(([key]) => key.startsWith("use"))
+    |> Object.fromEntries;
+
+export const defaultScope = {
     React,
-    ...React,
+    ...reactHooks,
     useListen: useListen(),
     useDispatch: useDispatch(),
     useStorage: useStorage("app"),
