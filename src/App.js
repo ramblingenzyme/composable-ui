@@ -6,7 +6,7 @@ import ComponentScope from "./platform/components/ComponentScope";
 import StyleEditor from "./platform/styles";
 import AppRenderer from "./platform/AppRenderer";
 import { initializeState, useStore } from "./state";
-import { defaultScope } from "./platform/utils";
+import { defaultScope } from "./const";
 
 const useSyncStyles = () => {
   const css = useStore((store) => store.css);

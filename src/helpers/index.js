@@ -1,11 +1,8 @@
 import { capitalize, trim } from "lodash";
-import { filter, map } from "lodash/fp";
+import { map } from "lodash/fp";
 
-import React from "react";
 import { transform } from "sucrase";
-import useListen from "./hooks/useListen";
-import useDispatch from "./hooks/useDispatch";
-import useStorage from "./hooks/useStorage";
+import { defaultScope } from "../const";
 
 const transpile = (src) => transform(src, { transforms: ["jsx"] }).code;
 
@@ -20,20 +17,6 @@ export const toFunc = (src, ...args) => {
   console.log(transformed);
   const fn = new Function(...args, transformed);
   return fn;
-};
-
-const reactHooks =
-  React
-  |> Object.entries
-  |> filter(([key]) => key.startsWith("use"))
-  |> Object.fromEntries;
-
-export const defaultScope = {
-  React,
-  ...reactHooks,
-  useListen: useListen(),
-  useDispatch: useDispatch(),
-  useStorage: useStorage("app"),
 };
 
 export const toComponent = (name, src, args = {}) => {

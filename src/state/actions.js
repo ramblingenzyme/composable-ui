@@ -1,4 +1,4 @@
-import { toComponent } from "../platform/utils";
+import { toComponent } from "../helpers";
 
 const removeKey = (obj, key) => {
   const clone = { ...obj };

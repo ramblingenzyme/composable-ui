@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { emitter } from "../const";
+import { emitter } from "../../const/emitter";
 
 const useDispatch =
   (id = "default") =>

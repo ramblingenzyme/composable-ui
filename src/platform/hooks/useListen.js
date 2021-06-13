@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { emitter } from "../const";
+import { emitter } from "../../const/emitter";
 
 const useListen =
   (id = "default") =>

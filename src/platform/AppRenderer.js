@@ -7,7 +7,7 @@ import { useStore } from "../state";
 import useDispatch from "./hooks/useDispatch";
 import useListen from "./hooks/useListen";
 import useStorage from "./hooks/useStorage";
-import { toComponent } from "./utils";
+import { toComponent } from "../helpers";
 
 function ComponentRenderer({ component: Component, name }) {
   if (!Component) {
