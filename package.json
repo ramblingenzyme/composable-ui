@@ -2,6 +2,25 @@
   "name": "composable-ui",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "parcel public/index.html",
+    "build": "rm -rf dist && parcel build --no-scope-hoist public/index.html",
+    "publish": "surge dist playground.ramblingenzy.me",
+    "prepare": "husky install"
+  },
+  "browserslist": {
+    "production": [
+      "since 2017-06"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "lint-staged": {
+    "*.(js|css|json|md)": "prettier --write"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -17,21 +36,6 @@
     "sucrase": "^3.18.1",
     "zustand": "^3.5.1"
   },
-  "scripts": {
-    "start": "parcel public/index.html",
-    "build": "rm -rf dist && parcel build --no-scope-hoist public/index.html",
-    "publish": "surge dist past-writer.surge.sh"
-  },
-  "browserslist": {
-    "production": [
-      "since 2017-06"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "devDependencies": {
     "@babel/core": "^7.14.3",
     "@babel/plugin-proposal-async-do-expressions": "^7.14.5",
@@ -39,6 +43,8 @@
     "@babel/plugin-proposal-pipeline-operator": "^7.12.13",
     "@babel/preset-env": "^7.14.2",
     "@babel/preset-react": "^7.13.13",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
     "parcel": "^2.0.0-beta.2",
     "prettier": "^2.3.1",
     "surge": "^0.23.0"
