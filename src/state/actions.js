@@ -35,8 +35,11 @@ const removeComponent = set => id => set(state => {
     }
 });
 
+const setCss = set => css => set({ css });
+
 const actions = {
     setComponent,
+    setCss,
     setSelectedComponent,
     removeComponent,
 }

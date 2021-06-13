@@ -18,6 +18,7 @@ const initialState = (set, get) => ({
     components: {
         [DEFAULT_COMPONENT_UUID]: { src: '', name: "New Component" }
      },
+    css: "",
     functions: { },
     selectedApplication: DEFAULT_APPLICATION_UUID,
     selectedComponent: DEFAULT_COMPONENT_UUID,
