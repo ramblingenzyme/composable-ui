@@ -1,5 +1,5 @@
 import React from "react";
-import { LeafNode, ObjectNode, TreeViewer } from "./scope/nodes";
+import { TreeViewer } from "./scope/nodes";
 
 const ComponentScope = ({ scope }) => {
   return (

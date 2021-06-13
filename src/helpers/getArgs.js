@@ -6,6 +6,7 @@ import {
   trim,
   replace,
   toString,
+  join,
 } from "lodash/fp";
 
 export default function getArgs(func) {
@@ -16,5 +17,6 @@ export default function getArgs(func) {
     |> split(",")
     |> map((arg) => arg |> replace(/\/\*.*\*\//, "") |> trim)
     |> filter(identity)
+    |> join(", ")
   );
 }

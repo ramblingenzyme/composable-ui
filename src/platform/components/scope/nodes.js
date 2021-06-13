@@ -15,7 +15,7 @@ const useMutationObserver = (target, callback) => {
   }, [target, observer]);
 };
 
-export const ObjectNode = ({ name, value }) => {
+const ObjectNode = ({ name, value }) => {
   const ref = useRef(null);
   const [open, setOpen] = useState(false);
 
@@ -53,13 +53,15 @@ export const ObjectNode = ({ name, value }) => {
   );
 };
 
-export const LeafNode = ({ name, value }) => (
+const FunctionNode = ({ name, value }) => (
   <div>
-    <b>
-      {name}
-      {value ? ":" : ""}
-    </b>{" "}
-    {value?.toString()}
+    {name}({getArgs(value)})
+  </div>
+);
+
+const LeafNode = ({ name, value }) => (
+  <div>
+    {name}: {value?.toString()}
   </div>
 );
 
@@ -68,7 +70,7 @@ export const TreeViewer = ({ name, value }) => {
     case "object":
       return <ObjectNode name={name} value={value} />;
     case "function":
-      return <LeafNode name={`${name}(${getArgs(value)})`} />;
+      return <FunctionNode name={name} value={value} />;
     default:
       return <LeafNode name={name} value={value} />;
   }
