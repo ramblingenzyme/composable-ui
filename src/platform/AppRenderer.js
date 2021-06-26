@@ -30,7 +30,7 @@ export default function AppsRenderer(props) {
   ]);
 
   const [scope, setScope] = useState();
-  const [fns, setFns] = useState([]);
+  const [hydratedComponents, setHydratedComponents] = useState([]);
 
   useEffect(() => {
     const scope = {
@@ -45,14 +45,18 @@ export default function AppsRenderer(props) {
       fn: toComponent(component.name, component.src, scope),
     });
 
-    components |> Object.values |> map(addFn) |> setFns;
+    components |> map(addFn) |> setHydratedComponents;
   }, [application, components]);
 
   const elements = map(
-    (fn) => (
-      <ComponentRenderer key={fn.name} name={fn.name} component={fn.fn} />
+    (component) => (
+      <ComponentRenderer
+        key={component.name}
+        name={component.name}
+        component={component.fn}
+      />
     ),
-    fns
+    hydratedComponents
   );
 
   return <div className="components">{elements}</div>;
