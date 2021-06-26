@@ -35,7 +35,6 @@ const persistConfig = {
   blacklist: ["functions"],
 };
 
-export const useStore =
-  initialState |> ((_) => persist(_, persistConfig)) |> create;
+export const useStore = initialState |> persist(?, persistConfig) |> create;
 
 useStore.subscribe(console.log);

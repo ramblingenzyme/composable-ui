@@ -725,6 +725,14 @@
     "@babel/helper-plugin-utils" "^7.8.3"
     "@babel/plugin-syntax-optional-chaining" "^7.8.0"
 
+"@babel/plugin-proposal-partial-application@^7.14.5":
+  version "7.14.5"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-partial-application/-/plugin-proposal-partial-application-7.14.5.tgz#dbd69d980092ee48cb8a3b9d30a949aca965173b"
+  integrity sha512-RS/Q537SMLjhd/kDIfIcnbUh7VTSLaO4VDbv0SOSomppgGGoDoKToL2mRsAcRag5/DOAx+ZY3h9OMb1dO4xS0A==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.14.5"
+    "@babel/plugin-syntax-partial-application" "^7.14.5"
+
 "@babel/plugin-proposal-pipeline-operator@^7.12.13":
   version "7.12.13"
   resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-pipeline-operator/-/plugin-proposal-pipeline-operator-7.12.13.tgz#739a490d253513f4fbead016afcfbb8ed980eb9d"
@@ -892,6 +900,13 @@
   integrity sha512-KoK9ErH1MBlCPxV0VANkXW2/dw4vlbGDrFgz8bmUsBGYkFRcbRwMh6cIJubdPrkxRwuGdtCk0v/wPTKbQgBjkg==
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.0"
+
+"@babel/plugin-syntax-partial-application@^7.14.5":
+  version "7.14.5"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-partial-application/-/plugin-syntax-partial-application-7.14.5.tgz#73f938b238119930cc1a628e64a931aa29cb826d"
+  integrity sha512-79JTFwu1p/YBKlVh+2HOL9iw7LH4TdbjhIPN9suQ89Z6G+FkMjvk8guHAYNKREeSMV7QRWJvPSFoYmHstjCe1A==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.14.5"
 
 "@babel/plugin-syntax-pipeline-operator@^7.12.13":
   version "7.12.13"
